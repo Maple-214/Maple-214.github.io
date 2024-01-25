@@ -1,4 +1,3 @@
-
 document.getElementById("name-container").style.display = "none";
 
 var position = window.scrollY;
@@ -26,7 +25,8 @@ function scrollToTop() {
 }
 
 // 修复没有弄右键菜单的童鞋无法回顶部的问题
-document.getElementById("page-name").innerText = document.title.split(" | 澤楓の小屋")[0];
+document.getElementById("page-name").innerText =
+  document.title.split(" | 澤楓の小屋")[0];
 
 // 使用 requestAnimationFrame 优化滚动事件处理
 function throttle(callback) {
