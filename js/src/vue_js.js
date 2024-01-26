@@ -1,6 +1,6 @@
 
 const vm = new Vue({
-  el: '#body-wrap',
+  el: '#sidebar',
   data: {
     message: 'Hello Vue!'
   },
