@@ -974,3 +974,16 @@ document.addEventListener("DOMContentLoaded", function () {
   refreshFn();
   unRefreshFn();
 });
+const asciiArt = `
+  __  __             _      
+ |  \\/  |           | |     
+ | \\  / | __ _ _ __ | | ___ 
+ | |\\/| |/ _\` | '_ \\| |/ _ \\
+ | |  | | (_| | |_) | |  __/
+ |_|  |_|\\__,_| .__/|_|\\___|
+              | |           
+              |_|
+`;
+
+// 在控制台中输出带有颜色的ASCII艺术
+console.log('%c' + asciiArt, 'color: #d95844;');

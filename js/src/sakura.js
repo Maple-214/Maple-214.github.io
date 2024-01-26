@@ -158,10 +158,11 @@ function startSakura() {
 }
 
 window.onresize = function () {
-  var canvasSnow = document.getElementById("canvas_snow");
-  canvasSnow.width = window.innerWidth;
-  canvasSnow.height = window.innerHeight;
+  var canvasSakura = document.getElementById("canvas_sakura");
+  canvasSakura.width = window.innerWidth;
+  canvasSakura.height = window.innerHeight;
 };
+
 
 function stopp(e) {
   if (!e && document.getElementById("canvas_sakura")) {
