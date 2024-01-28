@@ -756,7 +756,16 @@ document.addEventListener("DOMContentLoaded", function () {
       $lastPushDateItem.textContent = btf.diffDate(lastPushDate, true);
     }
   };
-
+  /**
+   * 自定义语言menu事件
+   * 
+   */
+  window.CustomEvent.selectLangHandler = (param) => {
+    if (param !== '/') {
+      this.location.href = param
+    }
+    btf.snackbarShow('English is not yet configured');
+  }
   /**
    * table overflow
    */

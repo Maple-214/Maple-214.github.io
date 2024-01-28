@@ -4,25 +4,85 @@
   
     
     <entry>
-      <title>1-1、CSS中hover时出现抖动的原因和解决方法</title>
-      <link href="/article/16495/"/>
-      <url>/article/16495/</url>
+      <title>ホバリング時のジッターの原因と解決策</title>
+      <link href="/article/6338/"/>
+      <url>/article/6338/</url>
       
-        <content type="html"><![CDATA[<h2 id="1-出现的原因"><a href="#1-出现的原因" class="headerlink" title="1. 出现的原因"></a>1. 出现的原因</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">CSS hover时出现抖动的原因通常与盒模型和布局有关，可能是由于元素在hover状态下增加了一些样式，导致元素的尺寸或位置发生了变化，从而引发抖动。</span><br></pre></td></tr></table></figure><h2 id="2-解决方式"><a href="#2-解决方式" class="headerlink" title="2. 解决方式"></a>2. 解决方式</h2><h3 id="2-1边框的影响"><a href="#2-1边框的影响" class="headerlink" title="2.1边框的影响"></a>2.1边框的影响</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 如果在hover状态下添加了边框，而没有在非hover状态下考虑到边框的宽度，可能导致抖动。确保在非hover状态下也为元素预留足够的空间。 */</span></span><br><span class="line"><span class="comment">/* 不好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</span><br><span class="line">  <span class="attribute">transition</span>: border-color <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</span><br><span class="line">  <span class="attribute">transition</span>: border-color <span class="number">0.3s</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-2-宽度和高度的变化"><a href="#2-2-宽度和高度的变化" class="headerlink" title="2.2 宽度和高度的变化"></a>2.2 宽度和高度的变化</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 如果在hover状态下改变了元素的宽度或高度，而在非hover状态下没有合适地设置，也可能导致抖动。 */</span></span><br><span class="line"><span class="comment">/* 不好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">transition</span>: width <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">transition</span>: width <span class="number">0.3s</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-3-改变透明度"><a href="#2-3-改变透明度" class="headerlink" title="2.3 改变透明度"></a>2.3 改变透明度</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 在某些情况下，改变元素透明度可能导致抖动。确保在非hover状态下也设置透明度。 */</span></span><br><span class="line"><span class="comment">/* 不好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">transition</span>: opacity <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.8</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">transition</span>: opacity <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.8</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-4-使用-transform-属性"><a href="#2-4-使用-transform-属性" class="headerlink" title="2.4 使用 transform 属性"></a>2.4 使用 transform 属性</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 在一些情况下，使用 transform 属性可能更有效，因为它不会影响文档流，避免了一些布局引起的抖动。 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">1.1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
       
       <categories>
           
-          <category> CSS </category>
+          <category> 日本語 </category>
+          
+          <category> Css </category>
           
       </categories>
       
       
         <tags>
             
+            <tag> フロントエンド </tag>
+            
             <tag> 前端 </tag>
             
-            <tag> CSS </tag>
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1-2、基本：TypeScriptの概要</title>
+      <link href="/article/52879/"/>
+      <url>/article/52879/</url>
+      
+        <content type="html"><![CDATA[<h1 id="二、TypeScriptについて"><a href="#二、TypeScriptについて" class="headerlink" title="二、TypeScriptについて"></a>二、TypeScriptについて</h1><h2 id="2-1問題の発見"><a href="#2-1問題の発見" class="headerlink" title="2.1問題の発見"></a>2.1問題の発見</h2><p>JavaScriptの各値には動作のセットがあり、さまざまなアクションを実行することで確認できます。これは抽象的に聞こえるので、簡単な例として、 <code>message</code> という変数に対して実行する可能性のあるアクションを考えてみましょう：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在 &#x27;message&#x27; 上访问属性 &#x27;toLowerCase&#x27;，并调用它</span></span><br><span class="line">message.<span class="title function_">toLowerCase</span>();</span><br><span class="line"><span class="comment">// 调用 &#x27;message&#x27;</span></span><br><span class="line"><span class="title function_">message</span>();</span><br></pre></td></tr></table></figure><p>これを分解すると、実行可能なコードの最初の行は属性 <code>toLowerCase</code> にアクセスし、それを呼び出します。2番目の試みは、 <code>message</code> を直接呼び出すことです。</p><p>しかし、 <code>message</code> が分からないとします。これはよくあることですが、これらのコードを実行しようとすると、どのような結果が得られるのかを確実に説明することはできません。各操作の動作は、最初に与えた <code>message</code> に依存します。</p><ul><li><code>message</code> を呼び出すことはできますか？</li><li><code>toLowerCase</code> という属性を持っていますか？</li><li>できる場合、 <code>toLowerCase</code> を呼び出すことができますか？</li><li>両方の値が呼び出し可能な場合、何を返しますか。</li></ul><p>これらの質問に対する答えは、通常、JavaScriptを書くときに心に留めていることであり、すべての詳細が正確であることを期待しなければなりません。</p><p><code>message</code> が次のように定義されているとします：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> message = <span class="string">&quot;Hello World!&quot;</span>;</span><br></pre></td></tr></table></figure><p>予想されるように、 <code>message.toLowerCase()</code> を実行しようとすると、同じ小文字の文字列しか得られません。</p><p>2行目のコードは？JavaScriptに精通していれば、これが失敗して例外が発生することがわかります：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">TypeError: message is not a function</span><br></pre></td></tr></table></figure><p>私たちがそのような間違いを避けられれば幸いです。</p><p>コードを実行するとき、JavaScriptの実行時に何をするかを選択する方法は、値の<em>タイプ</em>を決定することです。それがどのような動作と機能を持つかを決定します。この <code>TypeError</code> は暗示の一部です。文字列 <code>&quot;Hello World!&quot;</code> は関数として呼び出すことはできません。</p><p>基本型 <code>string</code> や <code>number</code> などの一部の値については、 <code>typeof</code> 演算子を使用して実行時にその型を識別できます。しかし、関数のような他のものについては、それらの型を識別するための適切な実行時機構がありません。たとえば、次の関数を考えてみます：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">x</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> x.<span class="title function_">flip</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>コード<em>観察</em>を読むことで、この関数は <code>flip</code> を呼び出せるプロパティを持つオブジェクトが与えられている場合にのみ機能しますが、JavaScriptはコードの実行時に確認できるような方法でこれらの情報を表示しません。純粋なJavaScriptでは、 <code>fn</code> に特定の値が何をするかを指定する<strong>唯一の方法</strong>は、その値を呼び出して何が起こるかを確認します。この動作は、実行前にコードが何をするかを予測することを困難にします。つまり、コードを書くときにコードが何をするかを知ることがより困難になることを意味します。</p><p>このように、<em>タイプ</em>は、 <code>fn</code> に渡すことができる値がクラッシュすることを示す概念である。JavaScriptが実際に提供するのは<em>動態</em>型だけです。コードを実行して、何が起こるかを確認してください。</p><p>もう1つの方法は、<em>せいてき</em>タイプのシステム<em>在る</em>を使用して、<em>前</em>予測コードを実行することです。</p><h2 id="2-2せいてきtypeけんさ"><a href="#2-2せいてきtypeけんさ" class="headerlink" title="2.2せいてきtypeけんさ"></a>2.2<strong>せいてきtypeけんさ</strong></h2><p><code>TypeError</code> 以前に <code>string</code> を関数として呼び出してみたことを思い出してください。<em>大多数の人</em>コードを実行するときに発生するあらゆる種類のエラーは好ましくありません。これらはエラーとみなされます！私たちは新しいコードを書くときに、新しいエラーを導入しないようにしています。</p><p>理想的には、<em>在る</em>コード実行<em>前</em>がこれらのエラーを発見するのに役立つツールがあります。これは、TypeScriptのような静的タイプインスペクタによって行われます。<em>せいてきがたシステム</em>は、プログラムを実行したときの値の形状と動作を記述しています。TypeScriptのようなタイプチェッカーは、どんなときに物事が浮気する可能性があるかを教えてくれます。</p><img src="https://s2.loli.net/2022/02/22/5yhsbTCF7cqVGNQ.png" alt="image-20211109134610557" style="zoom:50%;" align="left" /><p>コードを実行する前にTypeScriptを使用して最後のサンプルを実行すると、エラーメッセージが表示されます。</p><h2 id="2-3異常なし故障"><a href="#2-3異常なし故障" class="headerlink" title="2.3異常なし故障"></a>2.3<strong>異常なし故障</strong></h2><p>ここまでランタイムエラーについてお話ししてきました–JavaScriptの実行時に、何かが無意味だと思っていることを教えてくれる場合です。このような状況が発生するのは、<a href="https://tc39.github.io/ecma262/">ECMAScript仕様</a>が予期しない状況が発生した場合に言語がどのように動作するかを明示的に示しているからです。</p><p>たとえば、呼び出せないものを呼び出そうとすると、エラーがスローされると仕様書は言う。これは「明らかな行為」のように聞こえるかもしれませんが、オブジェクトに存在しない属性にアクセスしてもエラーがスローされるべきであることは想像できます。逆に、JavaScriptは別の動作を行い、値 <code>undefined</code> を返します：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;小千&quot;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">26</span>,</span><br><span class="line">&#125;;</span><br><span class="line">user.<span class="property">location</span>; <span class="comment">// 返回 undefined</span></span><br></pre></td></tr></table></figure><p>最終的に、静的タイプのシステムでは、呼び出しが必要なコードがシステム内でマークされる必要があります。たとえ、それがすぐにエラーがスローされない「有効な」JavaScriptであっても、そのコードはそのシステム内でマークされる必要があります。たとえば、TypeScriptでは、次のコードが未定義の <code>location</code> に関するエラーを生成します：</p><img src="https://s2.loli.net/2022/02/22/Qqo8BZmtJnGC1D4.png" alt="image-20211109141050215" style="zoom:50%;" /><p>TypeScriptは、私たちのプログラム内の<em>おびただしい</em>正当なエラーをキャプチャすることができます。例：</p><ul><li>誤字<img src="/img/TypeScript/01-04.png"></li><li>呼び出されていない関数</li></ul><img src="https://s2.loli.net/2022/02/22/U1MmrPyjdbkueRC.png" alt="image-20211109142053954" style="zoom:50%;" align="left" /><ul><li>または基本的な論理エラー</li></ul><p><img src="/img/TypeScript/01-06.png"></p><h2 id="2-4ツールの使用"><a href="#2-4ツールの使用" class="headerlink" title="2.4ツールの使用"></a>2.4<strong>ツールの使用</strong></h2><p>コード内でエラーが発生した場合、TypeScriptはエラーをキャッチします。これは素晴らしいことですが、TypeScriptも<em>まずは</em>私たちがこれらのミスを犯すのを防いでくれます。</p><p>タイプインスペクタは、変数やその他のプロパティの正しいプロパティにアクセスしているかどうかなどを確認するのに役立ちます。これらの情報を取得すると、使用したい属性を開始することもできます<em>提案</em>。</p><p>これは、ツールを使用してTypeScriptコードを編集するときにエラーメッセージとコード補完が表示され、コアタイプインスペクタがエディタにコードを入力できることを意味します。これは、TypeScriptのツールについて話す際によく言及する部分です。</p><img src="https://s2.loli.net/2022/02/22/qolAfbMnVIcXvys.png" alt="image-20211113085757666" style="zoom: 25%;" align="left" /><p>TypeScriptはツールを非常に重視しています。TypeScriptをサポートするエディタには、エラーを自動的に修正する「簡易修正」機能、コードを簡単に再編成するためのリファクタリング機能、変数定義にジャンプしたり、特定の変数へのすべての参照を検索するための便利なナビゲーション機能が用意されています。これらはすべてタイプチェッカーに基づいており、完全にクロスプラットフォームであるため、<a href="https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support">您最喜欢的编辑器</a>は<a href="https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support">TypeScriptのサポートが利用可能</a>の可能性があります。</p><h2 id="2-5-tsc-コンパイラ"><a href="#2-5-tsc-コンパイラ" class="headerlink" title="2.5 tsc コンパイラ"></a>2.5 <code>tsc</code> コンパイラ</h2><p>タイプチェックについて話してきましたが、私たちのタイプ<em>チェッカー</em>はまだ使用されていません。新しい友人 <code>tsc</code> TypeScriptコンパイラを紹介しましょう。まずnpmで入手する必要があります。</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g typescript</span><br></pre></td></tr></table></figure><p>これにより、TypeScriptコンパイラがグローバルにインストールされます。</p><p>では、空のフォルダに移動して、最初のTypeScriptプログラム <code>hello.ts</code> を作成してみましょう。</p><p><strong>01-ts-basics&#x2F;hello.ts</strong></p><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 你好，世界</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br></pre></td></tr></table></figure><p>ここには余分な装飾がないことに注意してください。この「ハローワールド」プログラムは、JavaScriptで「ハローワールド」プログラム用に書いたプログラムと同じように見えます。次に、 <code>tsc</code> パッケージを実行して、 <code>typescript</code> パッケージをコンパイルします：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[felix] 01-ts-basics $ tsc hello.ts</span><br></pre></td></tr></table></figure><p>私たちは <code>tsc</code> を走りましたが、何も起きませんでした！はい、タイプエラーはありませんので、何も報告されていないので、コンソールには何も出力されていません。</p><img src="https://s2.loli.net/2022/02/22/APiNb5FzvuwGlZk.png" alt="image-20211113093244339" style="zoom: 50%;" align="left"/><p>しかし、もう一度調べてみると、<em>ファイル</em>という出力がいくつか出てきます。現在のディレクトリを見ると、2つのファイル <code>hello.js</code> が <code>hello.ts</code> にあります。これは、 <code>hello.ts</code> ファイルが <code>tsc</code> <em>コンパイル</em>または<em>変換</em>に純粋なJavaScriptファイルである場合の出力です。</p><img src="https://s2.loli.net/2022/02/22/ctI9MPpSY1y8uLr.png" alt="image-20211113093559374" style="zoom: 50%;" align="left" /><p><code>hello.js</code> を確認すると、 <code>.ts</code> ファイルを処理した後にTypeScriptが吐き出す内容が表示されます：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 你好，世界</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br></pre></td></tr></table></figure><p>この場合、TypeScriptは変換するものがほとんどないので、私たちが書いたものと同じように見えます。コンパイラは、人間が書いたもののように見える、明瞭に読めるコードをコンパイルしようとします。注釈も残しておいてください。</p><p>タイプチェックエラーを導入した場合<em>確かに</em>はどうでしょうか。 <code>hello.ts</code> を上書きしてみましょう。</p><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">greet</span>(<span class="params">person, date</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello <span class="subst">$&#123;person&#125;</span>, today is <span class="subst">$&#123;date&#125;</span>!`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">greet</span>(<span class="string">&quot;小千&quot;</span>);</span><br></pre></td></tr></table></figure><p>もう一度実行すると、コマンドラインにエラーが表示されます！</p><img src="https://s2.loli.net/2022/02/22/QNL3DlBHYUbxu9Z.png" alt="image-20211113095515775" style="zoom:50%;" align="left"/><p>TypeScriptは、 <code>greet</code> 関数に引数を渡すことを忘れていることを示していますが、これは当然のことです。これまでは標準的なJavaScriptしか書いていませんでしたが、タイプチェックではコードの他の問題を見つけることができます。TypeScriptに感謝！</p><h2 id="2-6エラーが発生しました"><a href="#2-6エラーが発生しました" class="headerlink" title="2.6エラーが発生しました"></a>2.6エラーが発生しました</h2><p>前の例では、私たちの <code>hello.js</code> ファイルが再び変更されたことに気がつかないかもしれません。このファイルを開くと、内容が入力ファイルとほぼ同じであることがわかります。</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 你好，世界</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">greet</span>(<span class="params">person, date</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello &quot;</span> + person + <span class="string">&quot;, today is &quot;</span> + date + <span class="string">&quot;!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">greet</span>(<span class="string">&quot;小千&quot;</span>);</span><br></pre></td></tr></table></figure><p><code>tsc</code> が私たちのコードに関するエラーを報告しているという事実を考えると、これは少し驚くべきことかもしれませんが、これはTypeScriptの重要な価値観の1つに基づいています。ほとんどの場合、<em>君</em>はTypeScriptよりも何が起きているかを理解しています。</p><p>これまでにも触れておくと、タイプチェックコードによって実行できるプログラムの種類が制限されているため、タイプチェッカーが許容できると判断したタイプを比較検討する必要があります。ほとんどの場合、これは問題ありませんが、場合によっては、これらのチェックが邪魔になることがあります。たとえば、JavaScriptコードをTypeScriptに移行し、タイプチェックエラーを導入したとします。最終的には、タイプチェッカーのコードクリーンアップを開始しますが、元のJavaScriptコードを実行できるようになりました！なぜ、JSコードをTypeScriptコードに変換して実行しないようにしなければならないのでしょうか。</p><p>したがって、デフォルトではTypeScriptは我々のコードの実行を妨げることはありません。これらのJSはホスト環境で実行されても問題ありません。もちろん、時間の経過とともに、エラーに対してより防御し、TypeScriptの挙動をより厳しくしたいと思うかもしれません。この場合は、<a href="https://www.typescriptlang.org/tsconfig#noEmitOnError"> <code>noEmitOnError</code></a>コンパイラオプションを使用します。このオプションを使用して、 <code>hello.ts</code> ファイルを変更し、 <code>tsc</code> を再コンパイルしてみます：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tsc --noEmitOnError hello.ts</span><br></pre></td></tr></table></figure><p><img src="/img/TypeScript/02-04.png"></p><p><code>hello.js</code> は決して更新されないことに気づくでしょう。</p><h2 id="2-7明示型"><a href="#2-7明示型" class="headerlink" title="2.7明示型"></a>2.7明示型</h2><p>これまでのところ、typescript <code>person</code> や <code>date</code> がどのような型であるかは教えていません。コードを編集するときに、 <code>person</code> は <code>string</code> であり、 <code>date</code> は <code>Date</code> オブジェクトであるべきであることをTypeScriptに伝えます。</p><p>これにより、TypeScriptは他の <code>greet</code> が誤って呼び出された可能性があることを知らせることができます。たとえば、 <code>hello.ts</code> コードを変更します：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">greet</span>(<span class="params">person: string, date: <span class="built_in">Date</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello <span class="subst">$&#123;person&#125;</span>, today is <span class="subst">$&#123;date.toDateString()&#125;</span>!`</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="/img/TypeScript/02-05.png"></p><p>ん？TypeScriptは2番目のパラメータでエラーを報告していますが、これはなぜでしょうか。</p><p>驚くべきことに、 <code>Date()</code> をJavaScriptで呼び出すと、 <code>string</code> が返されます。 <code>new Date()</code> を使用すると、期待どおりに簡単にエラーを修正できます：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">greet</span>(<span class="params">person: string, date: <span class="built_in">Date</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello <span class="subst">$&#123;person&#125;</span>, today is <span class="subst">$&#123;date.toDateString()&#125;</span>!`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">greet</span>(<span class="string">&quot;小锋&quot;</span>, <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br></pre></td></tr></table></figure><p><img src="/img/TypeScript/02-06.png"></p><p>コンパイルに成功した結果、 <code>hello.js</code> が出力されました。</p><p>変数に明示的な型コメントを書く必要があるわけではないことを覚えておいてください。多くの場合、タイプの定義を無視しても、TypeScriptはタイプを自動的に<em>推論</em>(または「見つける」)ことができます。例えば：</p><img src="https://s2.loli.net/2022/02/22/N2pXBbY6LRwoaC1.png" alt="image-20211113111924590" style="zoom:50%;" align="left" /><p>ここではmsgに具体的な型を指定しておらず、typescriptは関数の実数から型を自動的に推定する。これは、タイプシステムが最終的に同じタイプを推定する場合には、タイプコメントを追加しない方がよい特性です。</p><h2 id="2-8消去タイプ"><a href="#2-8消去タイプ" class="headerlink" title="2.8消去タイプ"></a>2.8消去タイプ</h2><p>上のコードを <code>tsc</code> でコンパイルしたときにどのようなJavaScriptが出力されるかを詳しく見てみましょう。 <code>hello.js</code></p><p><img src="/img/TypeScript/02-08.png"></p><p>ここでは、2つの点に注意してください：</p><ol><li>引数 <code>person</code> および <code>date</code> には型に関するコメントがありません。</li><li>「テンプレート文字列」–逆引用符(&#96;文字)を使用した文字列は、連結(+)を持つ純粋な文字列に変換されます。</li></ol><p>2点目については後ほど詳しく紹介しますが、ここでは1点目に焦点を当ててみましょう。型注釈はJavaScriptの一部ではありません(つまり、ECMAScriptは遅れています)。そのため、実際にはブラウザが存在しないか、他のランタイムが変更なしでTypeScriptを実行することができます。これは、TypeScriptが最初にコンパイラを必要とする理由です。TypeScript固有のコードを切り離したり変換したりして、実行できるようにする方法が必要です。TypeScript固有のコードのほとんどが削除されました。</p><blockquote><p><strong>覚えておいてください</strong>：型コメントは、プログラムの実行時の動作を変更しません。</p></blockquote><h2 id="2-9ダウングレードコンパイル"><a href="#2-9ダウングレードコンパイル" class="headerlink" title="2.9ダウングレードコンパイル"></a>2.9ダウングレードコンパイル</h2><p>上記とのもう1つの違いは、テンプレート文字列が次のものから構成されていることです：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">`Hello <span class="subst">$&#123;person&#125;</span>, today is <span class="subst">$&#123;date.toDateString()&#125;</span>!`</span>;</span><br></pre></td></tr></table></figure><p>対象：</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;Hello &quot;</span> + person + <span class="string">&quot;, today is &quot;</span> + date.<span class="title function_">toDateString</span>() + <span class="string">&quot;!&quot;</span>;</span><br></pre></td></tr></table></figure><p>なぜそうなったのか。</p><p>テンプレート文字列は、ECMAScriptバージョンの機能であり、ECMAScript 2015（別名ECMAScript 6、ES2015、ES6など）と呼ばれます。TypeScriptは、新しいバージョンのECMAScriptから古いバージョン(ECMAScript 3やECMAScript 5(別名ES3とES5)など)にコードを書き換えることができます。ECMAScriptの最新バージョンまたはそれ以降のバージョンから、古いバージョンまたはそれ以前のバージョンへの移行プロセスは、<em>降格</em>と呼ばれることがあります。</p><p>デフォルトでは、TypeScriptはECMAScriptの非常に古いバージョンであるES3をターゲットにしています。<a href="https://www.typescriptlang.org/tsconfig#target"> <code>target</code></a>オプションを使用すると、のコンテンツを更新することができます。 <code>--target es2015</code> TypeScriptを実行してECMAScript 2015に変更を加えます。つまり、コードはECMAScript 2015をサポートするどこでも実行できるはずです。したがって、 <code>tsc --target es2015 hello.ts</code> を実行すると、次のような出力が得られます：</p><img src="https://s2.loli.net/2022/02/22/3BbKfisq9htp4nr.png" alt="image-20211113113644658" style="zoom:33%;" /><blockquote><p>デフォルトのターゲットはES3ですが、現在はほとんどのブラウザがES2015をサポートしています。そのため、一部の古いブラウザとの互換性を考慮しない限り、ほとんどの開発者はES2015以降をターゲットとして安全に指定することができます。</p></blockquote><h2 id="2-10厳格モード"><a href="#2-10厳格モード" class="headerlink" title="2.10厳格モード"></a>2.10厳格モード</h2><p>タイプインスペクタでTypeScriptを使用するユーザーによって、どの程度厳密にチェックしたいかが異なります。一部の人は、プログラムの一部のみを検証するのに役立つ、より緩やかな検証体験を探していますが、それでもよいツールを持っています。これはTypeScriptのデフォルトの操作です。タイプはオプションで、推論は最も緩いタイプを使用します。 <code>null</code>&#x2F; <code>undefined</code> は、 <code>tsc</code> がエラーに直面したときにJSファイルをコンパイルして生成する方法と同様に、潜在的な <code>null</code>&#x2F; <code>undefined</code> の値をチェックしません。既存のJavaScriptを移行するのであれば、これは理想的な第一歩かもしれません。</p><p>それよりも、多くのユーザーがTypeScriptをできるだけすぐに検証できるようにすることを好むのは、この言語が厳格な設定を提供する理由です。これらの厳密な設定は、(コードがチェックされているかどうかにかかわらず)スイッチから、よりダイヤルアップに近いものへと静的なタイプチェックを変えます。このダイアルを遠くに合わせるほど、TypeScriptがチェックしてくれます。これには多少の追加作業が必要になるかもしれないが、概して長期的に見れば価値があり、より徹底した検査とより正確なツールを実現することができる。可能であれば、新しいコードベースではこれらの厳密性チェックを常にオンにしておくべきである。</p><p>TypeScriptにはいくつかのタイプチェック厳密フラグがありますが、特に明記されていない限り、これらのフラグをすべて有効にして記述します。コマンドラインで<a href="https://www.typescriptlang.org/tsconfig#strict"> <code>strict</code></a>を設定するか、<a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html"> <code>tsconfig.json</code></a>で <code>&quot;strict&quot;: true</code> を設定して開きます。</p><p><img src="/img/TypeScript/02-10.png"></p><p><img src="/img/TypeScript/02-11.png"></p><p>上の2つのケースは、 <code>--strict true</code> を構成したためにエラーが発生しました。</p><p>また、個別に構成を選択することもできます。知っておくべき最も典型的な2つは、[ <code>noImplicitAny</code>]（<a href="https://www.typescriptlang.org/tsconfig#noImplicitAny%EF%BC%89%E3%81%A8[">https://www.typescriptlang.org/tsconfig#noImplicitAny）と[</a> <code>strictNullChecks</code>]（<a href="https://www.typescriptlang.org/tsconfig#strictNullChecks%EF%BC%89%E3%81%A7%E3%81%99%E3%80%82">https://www.typescriptlang.org/tsconfig#strictNullChecks）です。</a></p><ul><li>** <code>noImplicitAny</code> **</li></ul><p>いくつかの場所では、TypeScriptはタイプを推定しようとせず、最も緩いタイプに戻ります。 <code>any</code>。これは起こりうる最悪の事態ではありません–結局のところ、 <code>any</code> はいずれにしても、通常のJavaScript体験に戻ることができます。</p><p>ただし、通常、 <code>any</code> を使用すると、最初にTypeScriptを使用する目的が損なわれます。プログラムの種類が多ければ多いほど、より多くの検証やツールを手に入れることができます。つまり、コードを書くときのエラーが少なくなります。この<a href="https://www.typescriptlang.org/tsconfig#noImplicitAny"> <code>noImplicitAny</code></a>フラグをオンにすると、タイプが暗黙的に推定され、変数がエラーを起こしたときに <code>any</code> が適用されます。</p><img src="https://s2.loli.net/2022/02/22/Ir7T4vckJMsSnuK.png" alt="image-20211113122642576" style="zoom:40%;" /><ul><li>** <code>strictNullChecks</code> **</li></ul><p>デフォルトでは、 <code>null</code> および <code>undefined</code> の値は、他の任意の型に割り当てることができます。これはいくつかのコードを書くのを簡単にすることができますが、 <code>null</code> の処理を忘れて、 <code>undefined</code> があなたのコードの無数の誤りの原因です-一部の人はこれを<a href="https://www.youtube.com/watch?v=ybrQvs4x0Ps">十亿美元的错误</a>と考えています！この[ <code>strictNullChecks</code>]（<a href="https://www.typescriptlang.org/tsconfig#strictNullChecks%EF%BC%89%E3%83%95%E3%83%A9%E3%82%B0%E3%81%AB%E3%82%88%E3%82%8A%E3%80%81%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">https://www.typescriptlang.org/tsconfig#strictNullChecks）フラグにより、オペレーション</a> <code>null</code> および <code>undefined</code> がより明確になり、<em>忘れる</em>が <code>null</code> および <code>undefined</code> を処理するかどうかを心配する必要がなくなります。</p><img src="https://s2.loli.net/2022/02/22/wRlPY8gO9v1zkZa.png" alt="image-20211113122914750" style="zoom:50%;" /><h3 id="特別声明：この記事は古艺散人先生から転自し、必要があれば原文のプレビューで閲覧することができます。"><a href="#特別声明：この記事は古艺散人先生から転自し、必要があれば原文のプレビューで閲覧することができます。" class="headerlink" title="特別声明：この記事は古艺散人先生から転自し、必要があれば原文のプレビューで閲覧することができます。"></a>特別声明：この記事は<a href="https://github.com/lurongtao/TypeScript">古艺散人先生</a>から転自し、必要があれば原文のプレビューで閲覧することができます。</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 日本語 </category>
+          
+          <category> TypeScript </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> フロントエンド </tag>
+            
+            <tag> TypeScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1-1、基本：TypeScriptの概要</title>
+      <link href="/article/31375/"/>
+      <url>/article/31375/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-1-TypeScriptとは"><a href="#1-1-TypeScriptとは" class="headerlink" title="1.1 TypeScriptとは"></a>1.1 TypeScriptとは</h2><p>プログラミングコミュニティへの導入から20年以上が経ち、JavaScriptは今や史上最も広く利用されているクロスプラットフォーム言語の1つとなっています。JavaScriptは当初、Webページにわずかなインタラクティブ性を加えるための小さなスクリプト言語でしたが、現在ではあらゆる規模のフロントエンドおよびバックエンドのアプリケーションに最適な言語に成長しています。JavaScriptで書かれたプログラムのサイズ、範囲、複雑さは指数関数的に増加していますが、JavaScript言語は異なるコード単位間の関係を表現する能力がありません。JavaScriptの非常に特異なランタイムセマンティクスと組み合わせると、言語とプログラムの複雑さの間のこのミスマッチは、JavaScript開発を大規模な管理が困難なタスクにしてしまいます。</p><p>プログラマが書く最も一般的なエラータイプは、タイプエラーとして記述できます。タイプが異なる値が予想される場所で、あるタイプの値が使用されています。これは、単純なスペルミス、ライブラリのAPI表面を理解できない、ランタイム動作の誤った仮定、その他のエラーが原因である可能性があります。TypeScriptの目標は、JavaScriptプログラムの静的型チェッカー、つまり、コードが実行される前に実行されるツール(静的)であり、プログラムの型が正しいことを確認する(型チェック)ことです。</p><p>TypeScriptはマイクロソフトによって開発された自由でオープンソースのプログラミング言語です。これはJavaScriptのスーパーセットであり、基本的にはオプションの静的型とクラスベースのオブジェクト指向プログラミングがこの言語に追加されています。</p><p>TypeScriptはJavaScriptの言語拡張として非常に人気があります。既存のJavaScript構文の上に型レイヤーを追加します。このレイヤーは削除されても、実行時のパフォーマンスにはまったく影響しません。多くの人はTypeScriptを「単なるコンパイラ」と考えていますが、TypeScriptを2つの独立したシステムと考える方が良いでしょう。コンパイラ(構文を処理する部分)と言語ツール(エディタとの統合を処理する部分)です。この2つのシステムを独立して見ることで、私たちがこれまで行ってきた意思決定を説明できる2つの重要な視点を得ることができます。</p><p><strong>npm</strong>[3]では、TypeScriptのダウンロード数は毎年倍増しています。2021年12月1日現在、週間ダウンロード数は2200万件を超えている。昨年12月には約1200万件だった。なお高成長傾向を維持しており、減速の兆しは見られない。</p><p>バージョン2.0以降、TypeScriptでは2か月ごとに定期的にreleaseがリリースされるようになりました。しかし現在はリリースのペースを落とし、3カ月ごとのリリースに変更している。そのうち1か月かけて新しいfeaturesを書いてベータ版をリリースし、残り2か月でベータ版のテストとバグ修正を行い、その後のリリースをより安定させることができます。</p><h2 id="1-2-JS-ES-TS-の関係"><a href="#1-2-JS-ES-TS-の関係" class="headerlink" title="1.2 JS, ES, TS の関係"></a>1.2 <code>JS</code>, <code>ES</code>, <code>TS</code> の関係</h2><ul><li><strong>1995年：JavaScript</strong></li></ul><p>当時のネットスケープは、そのNavigatorブラウザによって、Web時代が始まった当時、最も有名な第1世代のインターネット企業になりつつありました。</p><p>ネットスケープは、静的なHTMLページに動的な効果を追加したいと考えていたため、 <code>Brendan Eich</code> は2週間以内にJavaScript言語を設計しました。</p><p>なぜJavaScriptと名付けられたのか。理由は当時Java言語が非常に人気だったので、ネットスケープ社はJavaの名を借りて普及させたいと考えていたのですが、実はJavaScriptは文法的にJavaに似ている部分以外はほとんど関係がありませんでした。</p><ul><li><strong>1997年：ECMAScript</strong></li></ul><p>ネットスケープがJavaScriptを開発し、その1年後にマイクロソフトがJavaScriptをまねてJScriptを開発したことで、JavaScriptをグローバル標準にするために、いくつかの企業がECMA（European Computer Manufacturers Association）（欧州コンピュータ製造業者協会）組織と連携してECMAScript標準と呼ばれるJavaScript言語の標準を制定したからだ。</p><table><thead><tr><th>版本</th><th>发布时间</th><th>一般的な呼び方</th><th>简称</th></tr></thead><tbody><tr><td>第1版</td><td>1997年6月</td><td>ECMAScript 1</td><td>ES1</td></tr><tr><td>第2版</td><td>1998年4月</td><td>ECMAScript 2</td><td>ES2</td></tr><tr><td>第3版</td><td>1999年12月</td><td>ECMAScript 3</td><td>ES3</td></tr><tr><td>第4版</td><td>2007年10月草案</td><td>ECMAScript 4</td><td>ES4</td></tr><tr><td>第5版</td><td>2009年12月</td><td>ECMAScript 5</td><td>ES5</td></tr><tr><td>第6版</td><td>2015年6月</td><td>ECMAScript 2015</td><td>ES6</td></tr><tr><td>第7版</td><td>2016年6月</td><td>ECMAScript 2016</td><td>ES7</td></tr><tr><td>第8版</td><td>2017年6月</td><td>ECMAScript 2017</td><td>ES8</td></tr><tr><td>第9版</td><td>2018年6月</td><td>ECMAScript 2018</td><td>ES9</td></tr><tr><td>第10版</td><td>2019年6月</td><td>ECMAScript 2019</td><td>ES10</td></tr><tr><td>第11版</td><td>2020年6月</td><td>ECMAScript 2020</td><td>ES11</td></tr><tr><td>第12版</td><td>2021年6月</td><td>ECMAScript 2021</td><td>ES12</td></tr></tbody></table><ul><li><strong>2015年：TypeScript</strong></li></ul><p>TypeScriptは、JavaScriptのスーパーセットです。JavaScriptのすべての要素を含み、JavaScriptを実行するコードで、JavaScriptの構文を拡張します。JavaScriptよりも静的型、クラス、モジュール、インタフェース、型注釈の機能が追加され、大規模プロジェクトの開発が容易になりました。</p><p>TypeScriptは、2015年のECMAScriptや、非同期機能やDecoratorsなどの将来的な提案など、最新のJavaScript機能を提供し、堅牢なコンポーネントの構築を支援しています。次の図に、TypeScriptとES5、ES2015+の関係を示します：</p><img src="https://s2.loli.net/2022/02/22/KVoCdwp5rB31zxm.png" alt="image-20211109122048861" style="zoom:50%;" /><h2 id="1-3-TypeScriptとJavaScriptの違い"><a href="#1-3-TypeScriptとJavaScriptの違い" class="headerlink" title="1.3 TypeScriptとJavaScriptの違い"></a>1.3 TypeScriptとJavaScriptの違い</h2><table><thead><tr><th>TypeScript</th><th>JavaScript</th></tr></thead><tbody><tr><td>JavaScriptのスーパーセットは、大規模プロジェクトのコードの複雑さを解決するために使用されます</td><td>一种脚本语言，用于创建动态网页</td></tr><tr><td>コンパイル中にエラーを発見して修正できる</td><td>作为一种解释型语言，只能在运行时发现错误</td></tr><tr><td>静的タイプと動的タイプの両方をサポートする強力タイプ</td><td>弱类型，没有静态类型选项</td></tr><tr><td>最终被编译成 JavaScript 代码，使浏览器可以理解</td><td>ブラウザで直接使用可能</td></tr><tr><td>モジュール、汎用、インターフェイスのサポート</td><td>不支持模块、泛型或接口</td></tr><tr><td>ES3、ES4、ES5、およびES6+の機能をサポート</td><td>不支持编译其他 ES3，ES4，ES5 或 ES6+ 功能</td></tr><tr><td>地域社会の支援は増え続けており、まだそれほど大きくはない</td><td>大量的社区支持以及大量文档和解决问题的支持</td></tr></tbody></table><h2 id="1-4-TypeScriptの競合他社について教えてください。"><a href="#1-4-TypeScriptの競合他社について教えてください。" class="headerlink" title="1.4 TypeScriptの競合他社について教えてください。"></a>1.4 TypeScriptの競合他社について教えてください。</h2><p>TypeScriptの目標は、大規模なJavaScriptプロジェクトを作成し、ポストメンテナンスに自信のあるツールを人々に提供することです。JavaScript自体にはないシンタックスサポートは、JavaScriptを実行して実行時に検出しない限り、各識別子のタイプを表します。この問題を解決するために、TypeScriptにシンタックスが追加されました。</p><p>つまり、ツールとしてサポートすることを目標としているのであれば、TypeScriptではこの分野では競争できない競合他社が少数存在します：</p><ul><li>ESLintとTSLint：TypeScriptと同じように、コード内で発生する可能性のあるエラーを強調するために使用されますが、チェックプロセスに新しい構文は追加されません。どちらもIDE統合のためのツールとして動作するつもりはなく、またTSやTS&#x2F;ESLintは、プロジェクトにとって意味のない特性を「相手の領域だ」と言うことが多い。最新のコードでは、TS&#x2F;ESLintの存在により、TypeScriptはすべてのコードベースに適用されるわけではないチェックを少なくすることができます。いくつかの機能が重なってしまいましたが、それらを良い補完ツールとして活用することができます。</li><li>CoffeeScript：おい、TypeScriptは2012年にリリースされたんだ！CoffeeScriptとTypeScriptの違いは、CoffeeScriptがJavaScriptにいくつかの機能を追加するなど、JavaScript言語を改善したいという点です。これは、CoffeeScriptと書き出されるJavaScriptの違いを理解することを意味します。時間の経過とともに、CoffeeScriptのベストコンセプトが逆に別のJavaScriptにしてしまい、ほとんどJavaScriptになってしまったCoffeeScriptに困ってしまう。</li><li>Flow：これは、FacebookのJavaScript型検査ツールおよびIDEツール言語です。TypeScriptと同じように、FlowはJavaScriptにいくつかのシンタックスサポートを追加して、より豊富なタイプのシステムを手に入れ、コンパイル時に削除します。JavaScriptを書き始めた頃、Flowは標準的なJavaScriptに近いツールだったので、最初に使ったツールです。Flowは素晴らしいタイプのシステムで、TypeScriptとは異なる目標を持っています。目に見えないタイプ層システムは「正しい」あるいは「十分に正しいと感じる」決定をし続けなければならず、Flowの目標は「正しい」（訳者注：Flowは<strong>soundness</strong>[6]に偏っており、タイプ判断においてより悲観的である）であり、TypeScriptの目標は「感覚的にはほとんどの場合が正しい」（訳者注：TS公式は<strong>TSは完全なタイプではありません</strong>[7]と主張しており、unsound行動を許容し、completenessに偏っており、タイプ判断においてより楽観的である）である。魚と熊の掌は両方を得ることができなくて、完備な類型導出、良好な開発体験と完璧なJS協同（Perfect JavaScript Interop）はその2つしか取れない。</li></ul><p>では、オープンソースのFlowコードベースのほとんどが最終的にTypeScriptに移行したのはなぜでしょうか。私の中では、2つのチームの異なるサイドポイントで決められている部分が大きいと思います。FlowはFacebookのコードベースを維持するために作られていますが、TypeScriptは独立した言語として作られています。ここには2つの証拠があります：</p><ol><li>Facebookのコードベースは分割できない巨大なモノレポであるが、Flowチームはこのような<strong>大規模コードベース</strong>[8]の下で型を実行するために<strong>信じられないほど多くの仕事が</strong>[9]を作成した。一方、TypeScriptは「小さなコードベースサービスを構築するため（use projects to make sets of smaller codebases）」と言えるが、これは人々がオープンソースコミュニティでJavaScriptモジュールを書く方法に合致しているからだ。そう言うのは理にかなっていると思いますが、TypeScriptはFlowのようにFacebookのコードベースでは動作せず、Facebookのコードを大量に書き直してプロジェクトを構築するか、TypeScriptに大量の修正を加える必要があり、TypeScript全体の開発者の体験に影響を与える可能性があります。</li><li>タイプに対するDefinitelyTypedとFlowのアプローチを比較すると、TypeScriptチームはコンパイラエンジニアをローテーションで配置し、DefinitelyTypedのビルドツールをサポートし、コミュニティの管理を支援します。そしてFlowは、ほぼ完全にコミュニティによって維持されています。DTは現在、非Facebookコードの開発に注力してきたため、より規模が大きくなっており、Flowチームからの資金支援を得るのは困難になるだろう。</li></ol><p>マイクロソフトがTypeScriptに社内で作成した独立した環境により、TypeScriptは、特別に難しい問題の解決だけに集中するのではなく、ツール開発やエコシステム全体のメンテナンスに自由に集中できるようになりました。これにより、TypeScriptチームは多くの人と協力し、コミュニティが望む機能を次々とリリースできるようになりました。時間の経過とともに、外部からの需要の伸びが鈍化しているため、Flowチームはコミュニティの仕事に時間を割くことがますます難しくなっているのではないかと推測しています。これが悪循環となっている。これにより、FlowはTypeScriptの直接的な「競合者」ではなく、さまざまな角度から、さまざまな制約を使って、類似の問題を解決する方法について興味深い視点を持つようになりました。</p><h2 id="1-5-TypeScriptの今後"><a href="#1-5-TypeScriptの今後" class="headerlink" title="1.5 TypeScriptの今後"></a>1.5 TypeScriptの今後</h2><h3 id="1-5-1TypeScriptの今後についてどう考えていますか。"><a href="#1-5-1TypeScriptの今後についてどう考えていますか。" class="headerlink" title="1.5.1TypeScriptの今後についてどう考えていますか。"></a>1.5.1<strong>TypeScriptの今後についてどう考えていますか。</strong></h3><p>現在、TypeScriptの使用を妨げている最大の障害は、ビルドツールが必要であることです。型文法がJavaScriptに組み込まれる可能性は低いと思いますが、JavaScriptでは「型をアノテーションで定義する」可能性は十分にあります。</p><p>このアイデアは、TypeScriptのようなタイプのシステムのシンタックスのセットを作成することですが、JSの実行時に何が起こるかは定義されていません。</p><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">a</span>: <span class="built_in">string</span> = <span class="string">&quot;1234&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将会变成这样</span></span><br><span class="line"><span class="keyword">const</span> a <span class="comment">/*: string */</span> = <span class="string">&quot;1234&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 传入 JS 引擎</span></span><br></pre></td></tr></table></figure><p>この例では、JSエンジンは、stringが&#x3D;で終わる型注釈であることを認識します。この実際の働き方は複雑で、解明に時間がかかる。しかし、JavaScriptでTypeScriptを「ネイティブに」実行できるようにすることで、TypeScriptが使用される際の障壁が低くなります。BabelがTypeScriptサポートを追加したときと同じように、TypeScriptにいくつかの制約を適用します。でもそれだけの価値はあると思う。</p><p>Denoは、現在のJavaScriptエンジンによるネイティブTypeScriptのサポートをシミュレートしたRustで書かれたツールを実行することで、TSのJSへのコンパイルを非常に迅速に行うことができる、すべてのTSの障害を取り除く重要な例です。</p><h3 id="1-5-2今日の競合他社"><a href="#1-5-2今日の競合他社" class="headerlink" title="1.5.2今日の競合他社"></a>1.5.2今日の競合他社</h3><ul><li>JetBrains WebStorm-高度なJavaScriptツールをサポートするIDEです。リファクタリング、コードフロー解析、JavaScript構文のチェックを行う独自のエンジンがあります。これはすばらしいことです。JetBrainsはすべてのIDEでしっかりとした仕事をしています。私は過去にAppCodeを使ってiOSの仕事をすることが多かった。TypeScriptのプロジェクトがある場合、WebStormはTypeScriptの言語ツールと独自のツールをミックスしてくれるので、Win-Winです。</li><li>JSにコンパイルされた言語-現在の例としてElm、ReScript、KotlinScriptがありますが、これらの言語はJavaScriptとの対話を中心にしています。これらはTypeScriptにとって興味深い言語であり、タイプシステムを実装するためのクリーンな環境を持っています。つまり、JSの負担がありません。競合他社としては、JavaScriptが中心ではないことや、CoffeeScriptからの移行にコミュニティが悩まされてきたことから、より細分化された市場を好む傾向があります。</li><li>WASM-TypeScriptの競合他社としてのWASMの見解は、WASMがJSコントロールブラウザDOMに代わる言語として機能するというものだと聞きました。これに反対する人々は、WASMにはDOMバインディングがなく、おそらく永遠に存在しないと考えている。TypeScriptにはJavaScriptの欠点が含まれていますが、JavaScriptランタイムにWASMを組み込んだことがあれば、ほぼ常にもっと好きになるでしょう。ということは、AssemblyScriptはこの点でかなり良い仕事をしているということになります。WASMはJSONと考えた方が良いかもしれません。WASMはプロジェクトを構成する別のツールであり、WASMとDOMの相互作用の仕方が変わっていない限り、JavaScriptの競合にはなりそうにありません。</li><li>WASMにコンパイルされた言語-たとえば、Rust、Go、Swiftなど、WASMにコンパイルできる他の言語。これらの言語はいずれもTypeScriptの現在のツールやwebのコア・ビルディング・モジュールとしての位置を占めている可能性がありますが、どうなるかわかりません。これらの言語は、さまざまな基本型を提供し、異なる目標に基づいてゼロから構築することができます。WASMやWASIが最終的に成功するのであれば、プラットフォームに関わることになると思いますが（appsなどの機能実装を考えてみてください）、その方向性を見てみると面白いと思います。本音を言えば、それらはTypeScriptの競合ではなく、JavaScriptのものです。</li></ul><h3 id="1-5-3-TypeScriptは生態系の中での位置をどう見ていますか？"><a href="#1-5-3-TypeScriptは生態系の中での位置をどう見ていますか？" class="headerlink" title="1.5.3 TypeScriptは生態系の中での位置をどう見ていますか？"></a>1.5.3 TypeScriptは生態系の中での位置をどう見ていますか？</h3><p>TypeScriptは、タイプシステムやエディタツールの分野でイノベーションを起こしたいと考えています。私たちは、主流のプログラミング言語の中で最も表現力の高いタイプのシステムの1つを持っています。</p><p>TypeScriptが最初に作成されたときのJavaScriptの修正プロセスは現在とはかなり異なるため、TypeScriptには実際にはTC39の領域である機能がいくつかありますが、下位互換性が必要です。これらの機能はJavaScriptに何年も存在し、何度も繰り返されることがあります。つまり、TypeScriptは、特定の言語機能の2つのバージョンを維持する必要があります。</p><p>そこでTC39 JavaScript言語委員会の優秀なメンバーになり、エディタがサポートする言語特性についてフィードバックし、TypeScriptユーザーが見たい特性をサポートすることを目指しています。このコラボレーションによって、TC39はJavaScriptを制御し、TypeScriptもそれらをサポートします。</p><h3 id="1-5-4-TypeScriptはそのオーディエンスをどのように見ていますか。"><a href="#1-5-4-TypeScriptはそのオーディエンスをどのように見ていますか。" class="headerlink" title="1.5.4 TypeScriptはそのオーディエンスをどのように見ていますか。"></a>1.5.4 TypeScriptはそのオーディエンスをどのように見ていますか。</h3><p>TypeScriptのオーディエンスは主に次のとおりです。</p><ul><li>JavaScriptユーザー(言語ツールとして)</li><li>JS+JSDocユーザー(言語ツールとして)</li><li>TypeScriptユーザー(コンパイラ、言語ツールとして)</li><li>TypeScript strictモード(コンパイラ、言語ツールとして)</li></ul><p>babel&#x2F;swc&#x2F;sucrase&#x2F;esbuildなどのツールを使用してプロジェクトを構築する場合、tscはオプションですが、前述の参加者はTSリリースのたびに、または少なくとも2回ごとに新しい機能を利用できます（訳者注：babel、esbuildなどはTSの新機能をサポートするために更新されます。TSチームが直接プロジェクトに参加するか、vscodeなどの機能をtscなしで提供する場合があります。その他のリリース計画については、<strong>TS roadmap</strong>[10]を参照してください）。</p><h3 id="1-5-5-TypeScriptはJSの生態をどのように追跡しているのか。"><a href="#1-5-5-TypeScriptはJSの生態をどのように追跡しているのか。" class="headerlink" title="1.5.5 TypeScriptはJSの生態をどのように追跡しているのか。"></a>1.5.5 TypeScriptはJSの生態をどのように追跡しているのか。</h3><p>チームは、次のような方法でフィードバックを受けます：</p><ul><li>GitHub Isuesには絶え間ないコメントの残響がある</li><li>Microsoftの社内チームが機能を提供するか、低速なコードベースのデバッグを私たちに依頼してきた</li><li>GitterまたはTypeScriptコミュニティのDiscordを介してコミュニティとつながる</li><li>マイクロクラスターの内部ツールを使用したアイデア&#x2F;デザインのユーザーテスト</li><li>VS Codeと非常に密接な関係があり、多くの言語ツールからフィードバックが寄せられている</li><li>@TypeScriptチームのツイートを読むと</li><li>TypeScriptに移行されたブログ投稿とTypeScriptから移行されたブログ投稿を追跡します</li><li>業界調査とプログラミング言語の概要を追跡</li></ul><h3 id="特別声明：この記事は古艺散人先生から転自し、必要があれば原文のプレビューで閲覧することができます。"><a href="#特別声明：この記事は古艺散人先生から転自し、必要があれば原文のプレビューで閲覧することができます。" class="headerlink" title="特別声明：この記事は古艺散人先生から転自し、必要があれば原文のプレビューで閲覧することができます。"></a>特別声明：この記事は<a href="https://github.com/lurongtao/TypeScript">古艺散人先生</a>から転自し、必要があれば原文のプレビューで閲覧することができます。</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 日本語 </category>
+          
+          <category> TypeScript </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> フロントエンド </tag>
+            
+            <tag> TypeScript </tag>
             
         </tags>
       
@@ -40,6 +100,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -47,9 +109,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -67,6 +129,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -74,9 +138,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -94,6 +158,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -101,9 +167,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -121,6 +187,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -128,9 +196,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -148,6 +216,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -155,9 +225,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -175,6 +245,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -182,9 +254,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -202,6 +274,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -209,9 +283,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -229,6 +303,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -236,9 +312,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -256,6 +332,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -263,9 +341,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -283,6 +361,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -290,9 +370,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -310,6 +390,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -317,9 +399,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -337,6 +419,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -344,9 +428,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -364,6 +448,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -371,9 +457,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -391,6 +477,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -398,9 +486,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -418,6 +506,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -425,9 +515,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -445,6 +535,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -452,9 +544,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -472,6 +564,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -479,9 +573,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -499,6 +593,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -506,9 +602,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -526,6 +622,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -533,9 +631,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -553,6 +651,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -560,9 +660,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -580,6 +680,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -587,9 +689,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -607,6 +709,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -614,9 +718,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -634,6 +738,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -641,9 +747,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -661,7 +767,38 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1-1、CSS中hover时出现抖动的原因和解决方法</title>
+      <link href="/article/16495/"/>
+      <url>/article/16495/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-出现的原因"><a href="#1-出现的原因" class="headerlink" title="1. 出现的原因"></a>1. 出现的原因</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">CSS hover时出现抖动的原因通常与盒模型和布局有关，可能是由于元素在hover状态下增加了一些样式，导致元素的尺寸或位置发生了变化，从而引发抖动。</span><br></pre></td></tr></table></figure><h2 id="2-解决方式"><a href="#2-解决方式" class="headerlink" title="2. 解决方式"></a>2. 解决方式</h2><h3 id="2-1边框的影响"><a href="#2-1边框的影响" class="headerlink" title="2.1边框的影响"></a>2.1边框的影响</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 如果在hover状态下添加了边框，而没有在非hover状态下考虑到边框的宽度，可能导致抖动。确保在非hover状态下也为元素预留足够的空间。 */</span></span><br><span class="line"><span class="comment">/* 不好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</span><br><span class="line">  <span class="attribute">transition</span>: border-color <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</span><br><span class="line">  <span class="attribute">transition</span>: border-color <span class="number">0.3s</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-2-宽度和高度的变化"><a href="#2-2-宽度和高度的变化" class="headerlink" title="2.2 宽度和高度的变化"></a>2.2 宽度和高度的变化</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 如果在hover状态下改变了元素的宽度或高度，而在非hover状态下没有合适地设置，也可能导致抖动。 */</span></span><br><span class="line"><span class="comment">/* 不好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">transition</span>: width <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">transition</span>: width <span class="number">0.3s</span>;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-3-改变透明度"><a href="#2-3-改变透明度" class="headerlink" title="2.3 改变透明度"></a>2.3 改变透明度</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 在某些情况下，改变元素透明度可能导致抖动。确保在非hover状态下也设置透明度。 */</span></span><br><span class="line"><span class="comment">/* 不好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">transition</span>: opacity <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.8</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 好的例子 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">transition</span>: opacity <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.8</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-4-使用-transform-属性"><a href="#2-4-使用-transform-属性" class="headerlink" title="2.4 使用 transform 属性"></a>2.4 使用 transform 属性</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 在一些情况下，使用 transform 属性可能更有效，因为它不会影响文档流，避免了一些布局引起的抖动。 */</span></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">transition</span>: transform <span class="number">0.3s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(<span class="number">1.1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 简体中文 </category>
+          
+          <category> Css </category>
           
       </categories>
       
@@ -670,7 +807,7 @@
             
             <tag> 前端 </tag>
             
-            <tag> TypeScript </tag>
+            <tag> Css </tag>
             
         </tags>
       
@@ -688,6 +825,8 @@
       
       <categories>
           
+          <category> 简体中文 </category>
+          
           <category> TypeScript </category>
           
       </categories>
@@ -695,9 +834,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> TypeScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       

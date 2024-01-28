@@ -20,7 +20,7 @@ function todo() {
     position = scroll;
   }
 
-  function scrollToTop() {
+  window.CustomEvent.scrollToTop = function () {
     menusItems.style.display = "";
     nameContainer.style.display = "none";
     btf.scrollToDest(0, 500);
